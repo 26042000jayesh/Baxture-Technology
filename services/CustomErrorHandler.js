@@ -6,8 +6,8 @@ class CustomErrorHandler extends Error {
         this.message = msg;
     }
 
-    static alreadyExist(message) {
-        return new CustomErrorHandler(409, message);
+    static routeNotMatched (message) {
+        return new CustomErrorHandler(404, message);
     }
 
     static validationFailed(message = 'Invalid UserId') {
