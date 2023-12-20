@@ -29,7 +29,7 @@ class InMemoryDB {
     }
 
     async add(item) {
-        return this.#databse.push(item);
+        this.#databse.push(item);
     }
 
     async update(key, value, updatedItem) {
@@ -50,5 +50,6 @@ class InMemoryDB {
     async clear() {
         this.#databse = [];
     }
-
 }
+
+module.exports = InMemoryDB;
