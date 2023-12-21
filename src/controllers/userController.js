@@ -59,19 +59,20 @@ const userController = {
     async updateUserById(req, res, next) {
         try {
             const userId = req.params.userId;
-            var { error } = paramCheckSchema.validate({ userId });
+            let  error  = paramCheckSchema.validate({ userId }).error;
             if (error) {
                 return next(error);
             }
-            var { error } = UserSchema.validate(req.body);
+            error = UserSchema.validate(req.body).error;
             if (error) {
                 return next(error);
             }
             const { username, age, hobbies } = req.body;
-            const updatedUserDocument = await userRepository.updateUser(userId, { username, age, hobbies });
-            if (!updatedUserDocument) {
+            let user = await userRepository.findUserById(userId);
+            if (!user) {
                 return next(CustomErrorHandler.notFound());
             }
+            const updatedUserDocument = await userRepository.updateUser(userId, { username, age, hobbies });
             return res.status(200).json(updatedUserDocument);
         } catch (error) {
             return next(CustomErrorHandler.serverError(error.message));

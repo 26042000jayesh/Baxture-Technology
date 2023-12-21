@@ -34,6 +34,10 @@ class UserRepository {
     async deleteAllUsers() {
         await this.#dataStorage.clear();
     }
+
+    async clearAll(){
+        await this.#dataStorage.clear();
+    }
 }
 
 const dataStorage = InMemoryDB.getInstance();
